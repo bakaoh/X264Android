@@ -1,0 +1,130 @@
+x264 configure script
+Command line options: "--prefix=/home/taitt/works/github/X264Android/x264/src/main/cpp/prebuilt/x86" "--host=i686-linux" "--sysroot=/home/taitt/Android/Sdk/ndk-bundle/platforms/android-9/arch-x86/" "--cross-prefix=/home/taitt/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/bin/i686-linux-android-" "--extra-cflags=" "--extra-ldflags=-nostdlib" "--enable-pic" "--enable-static" "--enable-strip" "--disable-cli" "--disable-win32thread" "--disable-avs" "--disable-swscale" "--disable-lavf" "--disable-ffms" "--disable-gpac" "--disable-lsmash"
+
+checking whether /home/taitt/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/bin/i686-linux-android-gcc works... yes
+checking whether /home/taitt/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/bin/i686-linux-android-gcc supports for( int i = 0; i < 9; i++ ); with -std=gnu99... yes
+checking for -mpreferred-stack-boundary=5... yes
+checking whether yasm supports vpmovzxwd ymm0, xmm0... yes
+checking whether /home/taitt/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/bin/i686-linux-android-gcc supports __asm__("pabsw %xmm0, %xmm0");... yes
+checking for pthread_create(0,0,0,0); in pthread.h... no
+Failed commandline was:
+--------------------------------------------------
+/home/taitt/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/bin/i686-linux-android-gcc conftest.c -m32  -Wall -I. -I$(SRCPATH) --sysroot=/home/taitt/Android/Sdk/ndk-bundle/platforms/android-9/arch-x86/  -march=i686 -mfpmath=sse -msse -msse2 -std=gnu99 -D_GNU_SOURCE -mpreferred-stack-boundary=5  -lpthread  -m32  --sysroot=/home/taitt/Android/Sdk/ndk-bundle/platforms/android-9/arch-x86/ -nostdlib -lm -o conftest
+/home/taitt/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/bin/../lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin/ld: error: cannot find -lpthread
+/tmp/cc6oZ2tq.o:conftest.c:function main: error: undefined reference to 'pthread_create'
+collect2: error: ld returned 1 exit status
+--------------------------------------------------
+Failed program was:
+--------------------------------------------------
+#include <pthread.h>
+int main (void) { pthread_create(0,0,0,0); return 0; }
+--------------------------------------------------
+checking for pthread_create(0,0,0,0); in pthread.h... no
+Failed commandline was:
+--------------------------------------------------
+/home/taitt/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/bin/i686-linux-android-gcc conftest.c -m32  -Wall -I. -I$(SRCPATH) --sysroot=/home/taitt/Android/Sdk/ndk-bundle/platforms/android-9/arch-x86/  -march=i686 -mfpmath=sse -msse -msse2 -std=gnu99 -D_GNU_SOURCE -mpreferred-stack-boundary=5    -m32  --sysroot=/home/taitt/Android/Sdk/ndk-bundle/platforms/android-9/arch-x86/ -nostdlib -lm -o conftest
+/tmp/ccSMYSSp.o:conftest.c:function main: error: undefined reference to 'pthread_create'
+collect2: error: ld returned 1 exit status
+--------------------------------------------------
+Failed program was:
+--------------------------------------------------
+#include <pthread.h>
+int main (void) { pthread_create(0,0,0,0); return 0; }
+--------------------------------------------------
+checking for return log2f(2); in math.h... no
+Failed commandline was:
+--------------------------------------------------
+/home/taitt/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/bin/i686-linux-android-gcc conftest.c -m32  -Wall -I. -I$(SRCPATH) --sysroot=/home/taitt/Android/Sdk/ndk-bundle/platforms/android-9/arch-x86/  -march=i686 -mfpmath=sse -msse -msse2 -std=gnu99 -D_GNU_SOURCE -mpreferred-stack-boundary=5  -Werror  -m32  --sysroot=/home/taitt/Android/Sdk/ndk-bundle/platforms/android-9/arch-x86/ -nostdlib -lm -o conftest
+conftest.c: In function 'main':
+conftest.c:2:1: error: implicit declaration of function 'log2f' [-Werror=implicit-function-declaration]
+ int main (void) { return log2f(2); return 0; }
+ ^
+conftest.c:2:26: error: incompatible implicit declaration of built-in function 'log2f' [-Werror]
+ int main (void) { return log2f(2); return 0; }
+                          ^
+cc1: all warnings being treated as errors
+--------------------------------------------------
+Failed program was:
+--------------------------------------------------
+#include <math.h>
+int main (void) { return log2f(2); return 0; }
+--------------------------------------------------
+checking whether defined(MAP_PRIVATE) is true... yes
+checking for MADV_HUGEPAGE; in sys/mman.h... yes
+checking for uint32_t test_vec __attribute__ ((vector_size (16))) = {0,1,2,3}; in stdint.h... yes
+checking for stdio.h... yes
+checking for -fno-tree-vectorize... yes
+checking for fseeko(stdin,0,0); in stdio.h... no
+Failed commandline was:
+--------------------------------------------------
+/home/taitt/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/bin/i686-linux-android-gcc conftest.c -O3 -ffast-math -m32  -Wall -I. -I$(SRCPATH) --sysroot=/home/taitt/Android/Sdk/ndk-bundle/platforms/android-9/arch-x86/  -march=i686 -mfpmath=sse -msse -msse2 -std=gnu99 -D_GNU_SOURCE -mpreferred-stack-boundary=5 -fPIC -fomit-frame-pointer -fno-tree-vectorize    -m32  --sysroot=/home/taitt/Android/Sdk/ndk-bundle/platforms/android-9/arch-x86/ -nostdlib -lm -s -o conftest
+/tmp/ccnM1Gbs.o:conftest.c:function main: error: undefined reference to '__sF'
+/tmp/ccnM1Gbs.o:conftest.c:function main: error: undefined reference to 'fseeko'
+collect2: error: ld returned 1 exit status
+--------------------------------------------------
+Failed program was:
+--------------------------------------------------
+#include <stdio.h>
+int main (void) { fseeko(stdin,0,0); return 0; }
+--------------------------------------------------
+checking for fseeko64(stdin,0,0); in stdio.h... no
+Failed commandline was:
+--------------------------------------------------
+/home/taitt/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/bin/i686-linux-android-gcc conftest.c -O3 -ffast-math -m32  -Wall -I. -I$(SRCPATH) --sysroot=/home/taitt/Android/Sdk/ndk-bundle/platforms/android-9/arch-x86/  -march=i686 -mfpmath=sse -msse -msse2 -std=gnu99 -D_GNU_SOURCE -mpreferred-stack-boundary=5 -fPIC -fomit-frame-pointer -fno-tree-vectorize    -m32  --sysroot=/home/taitt/Android/Sdk/ndk-bundle/platforms/android-9/arch-x86/ -nostdlib -lm -s -o conftest
+conftest.c: In function 'main':
+conftest.c:2:1: warning: implicit declaration of function 'fseeko64' [-Wimplicit-function-declaration]
+ int main (void) { fseeko64(stdin,0,0); return 0; }
+ ^
+/tmp/ccNdlROt.o:conftest.c:function main: error: undefined reference to '__sF'
+/tmp/ccNdlROt.o:conftest.c:function main: error: undefined reference to 'fseeko64'
+collect2: error: ld returned 1 exit status
+--------------------------------------------------
+Failed program was:
+--------------------------------------------------
+#include <stdio.h>
+int main (void) { fseeko64(stdin,0,0); return 0; }
+--------------------------------------------------
+checking for _fseeki64(stdin,0,0); in stdio.h... no
+Failed commandline was:
+--------------------------------------------------
+/home/taitt/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/bin/i686-linux-android-gcc conftest.c -O3 -ffast-math -m32  -Wall -I. -I$(SRCPATH) --sysroot=/home/taitt/Android/Sdk/ndk-bundle/platforms/android-9/arch-x86/  -march=i686 -mfpmath=sse -msse -msse2 -std=gnu99 -D_GNU_SOURCE -mpreferred-stack-boundary=5 -fPIC -fomit-frame-pointer -fno-tree-vectorize    -m32  --sysroot=/home/taitt/Android/Sdk/ndk-bundle/platforms/android-9/arch-x86/ -nostdlib -lm -s -o conftest
+conftest.c: In function 'main':
+conftest.c:2:1: warning: implicit declaration of function '_fseeki64' [-Wimplicit-function-declaration]
+ int main (void) { _fseeki64(stdin,0,0); return 0; }
+ ^
+/tmp/ccPNwsUx.o:conftest.c:function main: error: undefined reference to '__sF'
+/tmp/ccPNwsUx.o:conftest.c:function main: error: undefined reference to '_fseeki64'
+collect2: error: ld returned 1 exit status
+--------------------------------------------------
+Failed program was:
+--------------------------------------------------
+#include <stdio.h>
+int main (void) { _fseeki64(stdin,0,0); return 0; }
+--------------------------------------------------
+checking for -Wshadow... yes
+checking for -Wmaybe-uninitialized... yes
+
+platform:      X86
+byte order:    little-endian
+system:        LINUX
+cli:           no
+libx264:       internal
+shared:        no
+static:        yes
+asm:           yes
+interlaced:    yes
+avs:           no
+lavf:          no
+ffms:          no
+mp4:           no
+gpl:           yes
+thread:        no
+opencl:        yes
+filters:       crop select_every 
+lto:           no
+debug:         no
+gprof:         no
+strip:         yes
+PIC:           yes
+bit depth:     8
+chroma format: all
