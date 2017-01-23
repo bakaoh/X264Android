@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/X264Android.iml" filepath="$PROJECT_DIR$/X264Android.iml" />
-      <module fileurl="file://$PROJECT_DIR$/x264/x264.iml" filepath="$PROJECT_DIR$/x264/x264.iml" />
+      <module fileurl="file://$PROJECT_DIR$/x264-android/x264-android.iml" filepath="$PROJECT_DIR$/x264-android/x264-android.iml" />
     </modules>
   </component>
 </project>

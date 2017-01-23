@@ -9,7 +9,6 @@ x264 for android
 * Set the following environment variable:
 
 ```
-cd "<path to x264 checkout>"
 X264_ANDROID_ROOT="<path to x264android checkout>"
 ```
 

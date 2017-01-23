@@ -1,1 +1,1 @@
-include ':x264'
+include ':x264-android'
