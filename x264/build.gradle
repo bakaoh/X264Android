@@ -1,5 +1,29 @@
 apply plugin: 'com.android.library'
 
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'x264-android'
+
+    publishedGroupId = 'com.github.bakaoh'
+    libraryName = 'X264Android'
+    artifact = 'x264-android'
+
+    libraryDescription = 'Simple x264 encoder jni for android'
+
+    siteUrl = 'https://github.com/bakaoh/X264Android'
+    gitUrl = 'https://github.com/bakaoh/X264Android.git'
+
+    libraryVersion = '1.0.0'
+
+    developerId = 'bakaoh'
+    developerName = 'Tata Tata'
+    developerEmail = 'tatattai@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -40,3 +64,6 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
+
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'

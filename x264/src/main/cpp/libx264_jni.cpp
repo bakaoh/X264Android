@@ -10,6 +10,7 @@
 #define X264A_ERR_OPEN_ENCODER -3
 #define X264A_ERR_NOT_SUPPORT_CPS -4
 #define X264A_ERR_ENCODE_FRAME -5
+#define X264A_PACKAGE "com/github/bakaoh/x264/"
 
 extern "C"
 
@@ -37,7 +38,7 @@ static void *get_ctx(JNIEnv *env, jobject thiz) {
 JNIEXPORT jobject initEncoder(JNIEnv *env, jobject thiz, jobject params) {
     EncoderContext *ctx = (EncoderContext *) calloc(1, sizeof(EncoderContext));
     set_ctx(env, thiz, ctx);
-    jclass rsCls = env->FindClass("me/baka/x264/X264InitResult");
+    jclass rsCls = env->FindClass(X264A_PACKAGE"X264InitResult");
     jmethodID rsInit = env->GetMethodID(rsCls, "<init>", "(I[B[B)V");
 
     // init params
@@ -109,7 +110,7 @@ JNIEXPORT void releaseEncoder(JNIEnv *env, jobject thiz) {
  **/
 JNIEXPORT jobject encodeFrame(JNIEnv *env, jobject thiz, jbyteArray frame, jint csp, jlong pts) {
     EncoderContext *ctx = (EncoderContext *) get_ctx(env, thiz);
-    jclass rsCls = env->FindClass("me/baka/x264/X264EncodeResult");
+    jclass rsCls = env->FindClass(X264A_PACKAGE"X264EncodeResult");
     jmethodID rsInit = env->GetMethodID(rsCls, "<init>", "(I[BJZ)V");
 
     jbyte *input_frame = env->GetByteArrayElements(frame, NULL);
@@ -157,14 +158,14 @@ JNIEXPORT jobject encodeFrame(JNIEnv *env, jobject thiz, jbyteArray frame, jint 
 }
 
 JNIEXPORT jstring getVersion(JNIEnv *env, jobject thiz) {
-    return env->NewStringUTF("1.2.3");
+    return env->NewStringUTF("1.3.0");
 }
 
 static JNINativeMethod methods[] = {
-        {"initEncoder",    "(Lme/baka/x264/X264Params;)Lme/baka/x264/X264InitResult;", (void *) initEncoder},
-        {"releaseEncoder", "()V",                                                      (void *) releaseEncoder},
-        {"encodeFrame",    "([BIJ)Lme/baka/x264/X264EncodeResult;",                    (void *) encodeFrame},
-        {"getVersion",     "()Ljava/lang/String;",                                     (void *) getVersion},
+        {"initEncoder",    "(L"X264A_PACKAGE"X264Params;)L"X264A_PACKAGE"X264InitResult;", (void *) initEncoder},
+        {"releaseEncoder", "()V",                                                          (void *) releaseEncoder},
+        {"encodeFrame",    "([BIJ)L"X264A_PACKAGE"X264EncodeResult;",                      (void *) encodeFrame},
+        {"getVersion",     "()Ljava/lang/String;",                                         (void *) getVersion},
 };
 
 JNIEXPORT jint JNI_OnLoad(JavaVM *vm, void *reserved) {
@@ -175,7 +176,7 @@ JNIEXPORT jint JNI_OnLoad(JavaVM *vm, void *reserved) {
         return JNI_ERR;
     }
 
-    jclass clz = env->FindClass("me/baka/x264/X264Encoder");
+    jclass clz = env->FindClass(X264A_PACKAGE"X264Encoder");
     if (clz == NULL) {
         LOGE("JNI_OnLoad FindClass error.");
         return JNI_ERR;

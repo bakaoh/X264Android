@@ -1,4 +1,4 @@
-package me.baka.x264;
+package com.github.bakaoh.x264;
 
 /**
  * Created by taitt on 10/01/2017.
