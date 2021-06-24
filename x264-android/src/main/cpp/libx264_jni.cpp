@@ -8,7 +8,7 @@
 #define X264A_OK 0
 #define X264A_ERR_APPLY_PROFILE -2
 #define X264A_ERR_OPEN_ENCODER -3
-#define X264A_ERR_NOT_SUPPORT_CPS -4
+#define X264A_ERR_NOT_SUPPORT_CSP -4
 #define X264A_ERR_ENCODE_FRAME -5
 #define X264A_PACKAGE "com/github/bakaoh/x264/"
 
@@ -142,7 +142,7 @@ JNIEXPORT jobject encodeFrame(JNIEnv *env, jobject thiz, jbyteArray frame, jint 
             ctx->input_picture.img.i_stride[2] = ctx->params.i_width / 2;
             break;
         default:
-            return env->NewObject(rsCls, rsInit, X264A_ERR_NOT_SUPPORT_CPS, NULL, 0, false);
+            return env->NewObject(rsCls, rsInit, X264A_ERR_NOT_SUPPORT_CSP, NULL, 0, false);
     }
 
     int len = x264_encoder_encode(ctx->encoder, &nal, &nnal, &ctx->input_picture, &out_pic);
@@ -162,9 +162,9 @@ JNIEXPORT jstring getVersion(JNIEnv *env, jobject thiz) {
 }
 
 static JNINativeMethod methods[] = {
-        {"initEncoder",    "(L"X264A_PACKAGE"X264Params;)L"X264A_PACKAGE"X264InitResult;", (void *) initEncoder},
+        {"initEncoder",    "(L" X264A_PACKAGE "X264Params;)L" X264A_PACKAGE "X264InitResult;", (void *) initEncoder},
         {"releaseEncoder", "()V",                                                          (void *) releaseEncoder},
-        {"encodeFrame",    "([BIJ)L"X264A_PACKAGE"X264EncodeResult;",                      (void *) encodeFrame},
+        {"encodeFrame",    "([BIJ)L" X264A_PACKAGE "X264EncodeResult;",                      (void *) encodeFrame},
         {"getVersion",     "()Ljava/lang/String;",                                         (void *) getVersion},
 };
 

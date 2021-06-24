@@ -1,45 +1,72 @@
 #!/bin/bash
 
-set -e
+if [ -z $ANDROID_NDK_ROOT ]; then
+  ANDROID_NDK_ROOT=/home/forlayo/android-ndk-r21e
+  echo ANDROID_NDK_ROOT not defined.
+  echo Setting it up to ${ANDROID_NDK_ROOT}
+fi
 
-ARM_PLATFORM=$NDK_PATH/platforms/android-9/arch-arm/
-ARM_PREBUILT=$NDK_PATH/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64
-AARCH64_PLATFORM=$NDK_PATH/platforms/android-21/arch-arm64/
-AARCH64_PREBUILT=$NDK_PATH/toolchains/aarch64-linux-android-4.9/prebuilt/linux-x86_64
-X86_PLATFORM=$NDK_PATH/platforms/android-9/arch-x86/
-X86_PREBUILT=$NDK_PATH/toolchains/x86-4.9/prebuilt/linux-x86_64
+if [ -z $ANDROID_NDK_PLATFORM ]; then
+  ANDROID_NDK_PLATFORM=android-21
+  echo ANDROID_NDK_PLATFORM not defined.
+  echo Setting it up to ${ANDROID_NDK_PLATFORM}
+
+fi
+
+if [ -z $ANDROID_NDK_HOST ]; then
+  ANDROID_NDK_HOST=linux-x86_64
+  echo ANDROID_NDK_HOST not defined.
+  echo Setting it up to ${ANDROID_NDK_HOST}
+fi
+
+TOOLCHAIN=${ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/${ANDROID_NDK_HOST}
+ANDROID_VERSION=`echo "${ANDROID_NDK_PLATFORM}"|cut -d - -f 2`
 
 function build_one
 {
 if [ $ARCH == "arm" ] 
 then
-    SYSROOT=$ARM_PLATFORM
-    PREBUILT=$ARM_PREBUILT
-    CROSS_PREFIX=$PREBUILT/bin/arm-linux-androideabi-
+    COMPILER=armv7a-linux-androideabi
+    COMPILER_PREFIX=arm-linux-androideabi-
     HOST=arm-linux
+    export CC=${TOOLCHAIN}/bin/${COMPILER}${ANDROID_VERSION}-clang # c compiler path
+    export CXX=${TOOLCHAIN}/bin/${COMPILER}${ANDROID_VERSION}-clang++ # c++ compiler path
+
 elif [ $ARCH == "aarch64" ] 
 then
-    SYSROOT=$AARCH64_PLATFORM
-    PREBUILT=$AARCH64_PREBUILT
-    CROSS_PREFIX=$PREBUILT/bin/aarch64-linux-android-
+    COMPILER=aarch64-linux-android
+    COMPILER_PREFIX=aarch64-linux-android-
     HOST=aarch64-linux
-else
-    SYSROOT=$X86_PLATFORM
-    PREBUILT=$X86_PREBUILT
-    CROSS_PREFIX=$PREBUILT/bin/i686-linux-android-
+    export CC=${TOOLCHAIN}/bin/${COMPILER}${ANDROID_VERSION}-clang # c compiler path
+    export CXX=${TOOLCHAIN}/bin/${COMPILER}${ANDROID_VERSION}-clang++ # c++ compiler path
+elif [ $ARCH == "x86_64" ] 
+then
+    COMPILER=x86_64-linux-android
+    COMPILER_PREFIX=x86_64-linux-android-
+    HOST=x86_64-linux
+    export CC=${TOOLCHAIN}/bin/${COMPILER}${ANDROID_VERSION}-clang # c compiler path
+    export CXX=${TOOLCHAIN}/bin/${COMPILER}${ANDROID_VERSION}-clang++ # c++ compiler path
+elif [ $ARCH == "x86" ] 
+then
+    COMPILER=i686-linux-android
+    COMPILER_PREFIX=i686-linux-android-
     HOST=i686-linux
+    export CC=${TOOLCHAIN}/bin/${COMPILER}${ANDROID_VERSION}-clang # c compiler path
+    export CXX=${TOOLCHAIN}/bin/${COMPILER}${ANDROID_VERSION}-clang++ # c++ compiler path
 fi
 
 pushd libx264
 ./configure --prefix=$PREFIX \
         --host=$HOST \
-        --sysroot=$SYSROOT \
-        --cross-prefix=$CROSS_PREFIX \
+        --sysroot=${TOOLCHAIN}/sysroot \
+        --cross-prefix=${TOOLCHAIN}/bin/${COMPILER_PREFIX} \
         --extra-cflags="$OPTIMIZE_CFLAGS" \
         --extra-ldflags="-nostdlib" \
         --enable-pic \
         --enable-static \
         --enable-strip \
+        --disable-asm \
+        --disable-opencl \
         --disable-cli \
         --disable-win32thread \
         --disable-avs \
@@ -68,9 +95,15 @@ OPTIMIZE_CFLAGS="-march=armv8-a"
 PREFIX=`pwd`/prebuilt/arm64-v8a
 build_one
 
-#x86
-CPU=i686
-ARCH=i686
+#x86_64
+ARCH=x86_64
+OPTIMIZE_CFLAGS=
+PREFIX=`pwd`/prebuilt/x86_64
+build_one
+
+#x86_64
+ARCH=x86
 OPTIMIZE_CFLAGS=
 PREFIX=`pwd`/prebuilt/x86
 build_one
+

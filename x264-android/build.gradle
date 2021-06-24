@@ -1,32 +1,7 @@
 apply plugin: 'com.android.library'
 
-ext {
-    bintrayRepo = 'maven'
-    bintrayName = 'x264-android'
-
-    publishedGroupId = 'com.github.bakaoh'
-    libraryName = 'X264Android'
-    artifact = 'x264-android'
-
-    libraryDescription = 'Simple x264 encoder jni for android'
-
-    siteUrl = 'https://github.com/bakaoh/X264Android'
-    gitUrl = 'https://github.com/bakaoh/X264Android.git'
-
-    libraryVersion = '1.0.0'
-
-    developerId = 'bakaoh'
-    developerName = 'Tata Tata'
-    developerEmail = 'tatattai@gmail.com'
-
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
-}
-
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 30
 
     defaultConfig {
         minSdkVersion 15
@@ -40,7 +15,7 @@ android {
             }
         }
         ndk {
-            abiFilters 'x86', 'armeabi-v7a', 'arm64-v8a'
+            abiFilters 'x86', 'x86_64', 'armeabi-v7a', 'arm64-v8a'
         }
     }
     buildTypes {
@@ -49,7 +24,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             externalNativeBuild {
                 ndkBuild {
-                    arguments "LOCAL_LDFLAGS:=-Wl,-s"
+                    arguments "LOCAL_LDFLAGS:=-Wl,-s "
                 }
             }
         }
@@ -62,8 +37,5 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 }
-
-apply from: 'installv1.gradle'
-apply from: 'bintrayv1.gradle'
