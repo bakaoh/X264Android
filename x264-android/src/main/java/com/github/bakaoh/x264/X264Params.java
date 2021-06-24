@@ -6,10 +6,10 @@ package com.github.bakaoh.x264;
 
 public class X264Params {
 
-    public static final int CSP_I420 = 0x0001; // yuv 4:2:0 planar
-    public static final int CSP_YV12 = 0x0002; // yvu 4:2:0 planar
-    public static final int CSP_NV12 = 0x0003; // yuv 4:2:0, with one y plane and one packed u+v
-    public static final int CSP_NV21 = 0x0004; // yuv 4:2:0, with one y plane and one packed v+u
+    public static final int CSP_I420 = 0x0002; // yuv 4:2:0 planar
+    public static final int CSP_YV12 = 0x0003; // yvu 4:2:0 planar
+    public static final int CSP_NV12 = 0x0004; // yuv 4:2:0, with one y plane and one packed u+v
+    public static final int CSP_NV21 = 0x0005; // yuv 4:2:0, with one y plane and one packed v+u
     public int width = 1280;
     public int height = 720;
     public int bitrate = 500;

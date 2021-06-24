@@ -2,25 +2,9 @@
 
 ## Description ##
 
-x264 jni for android
+x264 encoder to being using through jni in Android.
 
 ## Using ##
-
-* Make sure you have the jcenter repository included in the `build.gradle` file in the root of your project:
-
-```
-repositories {
-    jcenter()
-}
-```
-
-*  Include the following in your module's `build.gradle` file:
-
-```
-compile 'com.github.bakaoh:x264-android:X.X.X'
-```
-
-for the version X.X.X, see the project on [Bintray](https://bintray.com/bakaoh/maven/x264-android).
 
 * Create `X264Encoder` and `X264Params`
 
@@ -59,26 +43,32 @@ if (encodedFrame.err == 0) {
 
 ## Build instructions ##
 
-* Set the following environment variable:
-
-```
-X264_ANDROID_ROOT="<path to x264android checkout>"
-```
-
-* Download the [Android NDK][] and set its location in an environment variable:
+* Download the [Android NDK][]:
 
 [Android NDK]: https://developer.android.com/tools/sdk/ndk/index.html
 
+* Set the following environment variables:
 ```
-NDK_PATH="<path to Android NDK>"
+ANDROID_NDK_ROOT="<path to Android NDK>"
+ANDROID_NDK_PLATFORM="<platform to build to>"
+ANDROID_NDK_HOST="<your-build-host>"
+```
+
+** Example:
+```
+ANDROID_NDK_ROOT=/home/forlayo/android-ndk-r21e
+ANDROID_NDK_PLATFORM=android-21
+ANDROID_NDK_HOST=linux-x86_64
 ```
 
 * Fetch and build libx264.
 
 ```
-cd "${X264_ANDROID_ROOT}/x264/src/main/cpp" && \
+cd "<repository checkout dir>/x264-android/src/main/cpp" && \
 git clone http://git.videolan.org/git/x264.git libx264 && \
+git checkout ae03d92b52bb7581df2e75d571989cb1ecd19cbd && \
 ./build_x264.sh
 ```
+You can use other commit of libx264, but its tested on provided one; which is the most actual at the momment of writting this.
 
 * Open project in Android Studio to build the JNI native libraries.
